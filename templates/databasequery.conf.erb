@@ -1,0 +1,13 @@
+  <Query "<%= name %>">
+    Statement "<%= sqlstatement %>"
+    <%- results.each do |result| -%>
+    <Result>
+      Type <%= result['resultType'] %>
+      InstancePrefix <%= result['instancePrefix'] %>
+      <%- if result['instancesFrom'] -%>
+      InstancesFrom <%= result['instancesFrom'] %>
+      <%- end -%>
+      ValuesFrom <%= result['valuesFrom'] %>
+    </Result>
+    <%- end -%>
+  </Query>
