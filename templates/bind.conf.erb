@@ -1,0 +1,18 @@
+<Plugin "bind">
+  URL "<%= url %>"
+  OpCodes         true
+  QTypes          true
+  
+  ServerStats     true
+  ZoneMaintStats  true
+  ResolverStats   false
+  MemoryStats     true
+  
+  <View "_default">
+    QTypes        true
+    ResolverStats true
+    CacheRRSets   true
+    
+    Zone "127.in-addr.arpa/IN"
+  </View>
+</Plugin>
