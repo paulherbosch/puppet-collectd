@@ -1,4 +1,7 @@
-define collectd::instance::config ($interval) {
+define collectd::instance::config (
+  $interval='15',
+  $pidfile='',
+) {
 
   if $name != 'default' {
     $instance = $name
@@ -12,7 +15,7 @@ define collectd::instance::config ($interval) {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    source  => '/etc/init.d/collectd',
+    content => template('collectd/init/collectd.erb')
   }
 
   # Create /etc/collectd${instance}.conf
@@ -22,8 +25,7 @@ define collectd::instance::config ($interval) {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    source  => '/etc/collectd.conf',
-    replace => false,
+    content => template('collectd/conf/collectd.erb'),
   }
 
   file { "/etc/collectd${instance}.d":
@@ -33,37 +35,4 @@ define collectd::instance::config ($interval) {
     mode    => '0755',
   }
 
-  # Include directive /etc/collectd.d/*/init.conf -> this include can handle all possible configurations,
-  # assuming that the config files are in a subdirectory like /etc/collectd.d/<plugin name>/init.conf;
-  # init.conf can optionally include other config files.
-  augeas { "collectd${instance}.conf.1":
-    lens    => 'Httpd.lns',
-    incl    => "/etc/collectd${instance}.conf",
-    changes => [
-      'set directive[.=\"Include\"]/ \'Include\'',
-      "set directive[.=\"Include\"]/arg '\"/etc/collectd${instance}.d/*/init.conf\"'",
-    ],
-    require => File["collectd${instance}.conf"],
-  }
-
-  augeas { "collectd${instance}.conf.2":
-    lens    => 'Httpd.lns',
-    incl    => "/etc/collectd${instance}.conf",
-    changes => [
-      'set directive[.=\"Interval\"]/ \'Interval\'',
-      "set directive[.=\"Interval\"]/arg '${interval}'",
-    ],
-    require => Augeas["collectd${instance}.conf.1"],
-  }
-
-  # Set PID file in collectd config file (--pidfile in init scropt's daemon command may not work)
-  augeas { "collectd${instance}.conf.3":
-    lens    => 'Httpd.lns',
-    incl    => "/etc/collectd${instance}.conf",
-    changes => [
-      'set directive[.=\"PIDFile\"]/ \'PIDFile\'',
-      "set directive[.=\"PIDFile\"]/arg '\"/var/run/collectd${instance}.pid\"'",
-    ],
-    require => Augeas["collectd${instance}.conf.2"],
-  }
 }
