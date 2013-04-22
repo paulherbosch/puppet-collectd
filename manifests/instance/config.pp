@@ -1,6 +1,6 @@
 define collectd::instance::config (
   $interval='15',
-  $pidfile='',
+  $pidfile='/var/run/collectd',
 ) {
 
   if $name != 'default' {
