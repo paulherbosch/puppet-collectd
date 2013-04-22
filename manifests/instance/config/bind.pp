@@ -3,7 +3,7 @@ define collectd::instance::config::bind (
   $opcodes=true,
   $qtypes=true,
   $serverstats=true,
-  $zonemainstats=true,
+  $zonemaintstats=true,
   $resolverstats=false,
   $memorystats=true,
   $zones=undef
