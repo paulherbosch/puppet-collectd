@@ -1,19 +1,22 @@
 LoadPlugin bind
 <Plugin "bind">
-  URL "<%= url %>"
-  OpCodes         true
-  QTypes          true
+  URL             "<%= url %>"
+  OpCodes         <%= opcodes %>
+  QTypes          <%= qtypes %>
   
-  ServerStats     true
-  ZoneMaintStats  true
-  ResolverStats   false
-  MemoryStats     true
+  ServerStats     <%= serverstats %>
+  ZoneMaintStats  <%= zonemaintstats %>
+  ResolverStats   <%= resolverstats %>
+  MemoryStats     <%= memorystats %>
   
   <View "_default">
     QTypes        true
     ResolverStats true
     CacheRRSets   true
-    
-    Zone "127.in-addr.arpa/IN"
+<% if has_variable?("zones") %>
+  <% zones.each do |zone| %>
+    Zone "<%= zone %>"
+  <% end %>
+<% end%>
   </View>
 </Plugin>

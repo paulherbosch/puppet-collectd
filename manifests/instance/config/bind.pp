@@ -1,4 +1,13 @@
-define collectd::instance::config::bind ($url='http://localhost:8053') {
+define collectd::instance::config::bind (
+  $url='http://localhost:8053',
+  $opcodes=true,
+  $qtypes=true,
+  $serverstats=true,
+  $zonemainstats=true,
+  $resolverstats=false,
+  $memorystats=true,
+  $zones=undef
+) {
 
   if $name != 'default' {
     $instance = $name

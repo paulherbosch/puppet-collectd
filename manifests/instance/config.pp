@@ -40,7 +40,7 @@ define collectd::instance::config ($interval) {
     lens    => 'Httpd.lns',
     incl    => "/etc/collectd${instance}.conf",
     changes => [
-      "set directive[.=\"Include\"]/ 'Include'",
+      'set directive[.=\"Include\"]/ \'Include\'',
       "set directive[.=\"Include\"]/arg '\"/etc/collectd${instance}.d/*/init.conf\"'",
     ],
     require => File["collectd${instance}.conf"],
@@ -50,7 +50,7 @@ define collectd::instance::config ($interval) {
     lens    => 'Httpd.lns',
     incl    => "/etc/collectd${instance}.conf",
     changes => [
-      "set directive[.=\"Interval\"]/ 'Interval'",
+      'set directive[.=\"Interval\"]/ \'Interval\'',
       "set directive[.=\"Interval\"]/arg '${interval}'",
     ],
     require => Augeas["collectd${instance}.conf.1"],
@@ -61,7 +61,7 @@ define collectd::instance::config ($interval) {
     lens    => 'Httpd.lns',
     incl    => "/etc/collectd${instance}.conf",
     changes => [
-      "set directive[.=\"PIDFile\"]/ 'PIDFile'",
+      'set directive[.=\"PIDFile\"]/ \'PIDFile\'',
       "set directive[.=\"PIDFile\"]/arg '\"/var/run/collectd${instance}.pid\"'",
     ],
     require => Augeas["collectd${instance}.conf.2"],
