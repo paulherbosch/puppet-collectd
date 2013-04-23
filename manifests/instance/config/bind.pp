@@ -3,7 +3,7 @@ define collectd::instance::config::bind (
   $opcodes=true,
   $qtypes=true,
   $serverstats=true,
-  $zonemainstats=true,
+  $zonemaintstats=true,
   $resolverstats=false,
   $memorystats=true,
   $zones=undef
@@ -28,7 +28,7 @@ define collectd::instance::config::bind (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("${module_name}/bind.conf.erb"),
+    content => template("collectd/plugins/bind.conf.erb"),
   }
 
   Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Bind[$title] ~> Collectd::Instance::Service[$title]

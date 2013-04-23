@@ -1,5 +1,12 @@
-define collectd::instance::config::amqp ($exchange, $host = 'localhost', $port = '5672', $user = 'guest',
-    $password = 'guest', $messageFormat = 'graphite', $graphitePrefix = 'collectd.') {
+define collectd::instance::config::amqp (
+  $exchange,
+  $host = 'localhost',
+  $port = '5672',
+  $user = 'guest',
+  $password = 'guest',
+  $messageFormat = 'graphite',
+  $graphitePrefix = 'collectd.'
+) {
 
   if $name != 'default' {
     $instance = $name
@@ -26,7 +33,7 @@ define collectd::instance::config::amqp ($exchange, $host = 'localhost', $port =
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("${module_name}/amqp.conf.erb"),
+    content => template("collectd/plugins/amqp.conf.erb"),
   }
 
   Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Amqp[$title] ~> Collectd::Instance::Service[$title]

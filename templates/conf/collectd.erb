@@ -1,0 +1,48 @@
+#
+# Config file for collectd(1).
+# Please read collectd.conf(5) for a list of options.
+# http://collectd.org/
+#
+
+##############################################################################
+# Global                                                                     #
+#----------------------------------------------------------------------------#
+# Global settings for the daemon.                                            #
+##############################################################################
+
+#Hostname    "localhost"
+#FQDNLookup   true
+#BaseDir     "/var/lib/collectd"
+#PIDFile     "/var/run/collectd.pid"
+#PluginDir   "/usr/lib64/collectd"
+#TypesDB     "/usr/share/collectd/types.db"
+Timeout      2
+ReadThreads  5
+Interval     <%= interval %>
+PIDFile      <%= pidfile %><%= instance %>.pid
+Include      "/etc/collectd<%= instance %>.d/*/init.conf"
+
+##############################################################################
+# Logging                                                                    #
+#----------------------------------------------------------------------------#
+# Plugins which provide logging functions should be loaded first, so log     #
+# messages generated when loading or configuring other plugins can be        #
+# accessed.                                                                  #
+##############################################################################
+
+LoadPlugin syslog
+
+##############################################################################
+# LoadPlugin section                                                         #
+#----------------------------------------------------------------------------#
+# Lines beginning with a single `#' belong to plugins which have been built  #
+# but are disabled by default.                                               #
+#                                                                            #
+# Lines begnning with `##' belong to plugins which have not been built due   #
+# to missing dependencies or because they have been deactivated explicitly.  #
+##############################################################################
+
+LoadPlugin cpu
+LoadPlugin interface
+LoadPlugin load
+LoadPlugin memory
