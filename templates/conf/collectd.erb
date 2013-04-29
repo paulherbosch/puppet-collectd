@@ -19,7 +19,7 @@
 Timeout      2
 ReadThreads  5
 Interval     <%= interval %>
-PIDFile      <%= pidfile %><%= instance %>.pid
+PIDFile      "<%= pidfile %><%= instance %>.pid"
 Include      "/etc/collectd<%= instance %>.d/*/init.conf"
 
 ##############################################################################
