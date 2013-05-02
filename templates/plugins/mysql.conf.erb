@@ -1,0 +1,11 @@
+LoadPlugin mysql
+<Plugin "mysql">
+<%- scope.lookupvar('database_items').each do |database_item| -%>
+  <Database "<%= name %>">
+    Host "<%= database_item['host'] %>"
+    Port "<%= database_item['port'] %>"
+    User "<%= database_item['user'] %>"
+    Password "<%= database_item['password'] %>"
+  </Database>
+<%- end -%>
+</Plugin>
