@@ -6,6 +6,12 @@ define collectd::instance::config::mysql ($database_items=[]) {
     $instance = ''
   }
 
+  if !defined(Package['collectd-mysql']) {
+    package { 'collectd-mysql':
+      ensure  => '5.2.0-5.cegeka',
+    }
+  }
+
   file { "/etc/collectd${instance}.d/mysql":
     ensure => directory,
     owner  => 'root',
