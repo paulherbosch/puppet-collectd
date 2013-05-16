@@ -1,5 +1,7 @@
 define collectd::instance::config::oracle {
 
+  include collectd::params
+
   if $name != 'default' {
     $instance = $name
   } else {
@@ -8,7 +10,7 @@ define collectd::instance::config::oracle {
 
   if !defined(Package['collectd-oracle']) {
     package { 'collectd-oracle':
-      ensure  => '5.2.0-5.cegeka',
+      ensure  => $package_name,
     }
   }
 

@@ -8,6 +8,8 @@ define collectd::instance::config::amqp (
   $graphitePrefix = 'collectd.'
 ) {
 
+  include collectd::params
+
   if $name != 'default' {
     $instance = $name
   } else {
@@ -16,7 +18,7 @@ define collectd::instance::config::amqp (
 
   if !defined(Package['collectd-amqp']) {
     package { 'collectd-amqp':
-      ensure  => '5.2.0-5.cegeka',
+      ensure  => $package_name,
     }
   }
 

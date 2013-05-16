@@ -1,5 +1,7 @@
 define collectd::instance::config::mysql ($database_items=[]) {
 
+  include collectd::params
+
   if $name != 'default' {
     $instance = $name
   } else {
@@ -8,7 +10,7 @@ define collectd::instance::config::mysql ($database_items=[]) {
 
   if !defined(Package['collectd-mysql']) {
     package { 'collectd-mysql':
-      ensure  => '5.2.0-5.cegeka',
+      ensure  => $package_name,
     }
   }
 
