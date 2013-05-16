@@ -26,7 +26,17 @@ define collectd::instance::config::jmx() {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => "LoadPlugin java\nInclude \"/etc/collectd${instance}.d/jmx/jmx_*.conf\"\n"
+    content => template("${module_name}/plugins/jmx/init.conf.erb"),
+    require => File["/etc/collectd${instance}.d/jmx"]
+  }
+
+  file { "/etc/collectd${instance}.d/jmx/jmx_load.conf":
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => "puppet:///modules/${module_name}/plugins/jmx/jmx_load.conf",
+    require => File["/etc/collectd${instance}.d/jmx"]
   }
 
   Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Jmx[$title] ~> Collectd::Instance::Service[$title]
