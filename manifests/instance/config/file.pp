@@ -1,10 +1,4 @@
-define collectd::instance::config::file($plugin_type=undef, $file_name=undef, $source=undef) {
-
-  if $name != 'default' {
-    $instance = $name
-  } else {
-    $instance = ''
-  }
+define collectd::instance::config::file($instance='', $plugin_type=undef, $file_name=undef, $source=undef) {
 
   if $plugin_type == undef {
     fail("Collectd::Instance::Config::File[${title}]: parameter plugin_type must be present")
