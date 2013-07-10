@@ -3,7 +3,12 @@ LoadPlugin mysql
 <%- scope.lookupvar('database_items').each do |database_item| -%>
   <Database "<%= database_item['db_schema'] %>">
     Host "<%= database_item['host'] %>"
+    <%- if !database_item['port'].nil? -%>
     Port "<%= database_item['port'] %>"
+    <%- end -%>
+    <%- if !database_item['socket'].nil? -%>
+    Socket "<%= database_item['socket'] %>"
+    <%- end -%>
     User "<%= database_item['user'] %>"
     Password "<%= database_item['password'] %>"
   </Database>
