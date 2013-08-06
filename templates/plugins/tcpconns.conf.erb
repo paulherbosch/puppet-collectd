@@ -1,0 +1,14 @@
+LoadPlugin tcpconns
+<%- scope.lookupvar('tcp_connections_items').each do |tcp_conn_item| -%>
+<Plugin "tcpconns">
+  <%- if !tcp_conn_item['listening_ports'].nil? -%>
+  ListeningPorts <%= tcp_conn_item['listening_ports'] %>
+  <%- end -%>
+  <%- if !tcp_conn_item['local_port'].nil? -%>
+  LocalPort "<%= tcp_conn_item['local_port'] %>"
+  <%- end -%>
+  <%- if !tcp_conn_item['remote_port'].nil? -%>
+  RemotePort "<%= tcp_conn_item['remote_port'] %>"
+  <%- end -%>
+</Plugin>
+<%- end -%>
