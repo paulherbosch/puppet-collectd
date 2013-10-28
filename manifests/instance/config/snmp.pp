@@ -23,7 +23,7 @@ define collectd::instance::config::snmp (
     package { 'collectd-snmp':
       ensure  => $package_name,
     }
-  } 
+  }
 
   file { "/etc/collectd${instance}.d/snmp":
     ensure => directory,
