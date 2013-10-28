@@ -6,13 +6,30 @@ define collectd::instance::config::bind (
   $zonemaintstats=true,
   $resolverstats=false,
   $memorystats=true,
-  $zones=undef
+  $zones=undef,
+  $release='5.2.0-6'
 ) {
 
   if $name != 'default' {
     $instance = $name
   } else {
     $instance = ''
+  }
+
+  case $::operatingsystemrelease {
+    /^5./: {
+      $package_name = "${release}.cgk.el5"
+    }
+    /^6./: {
+      $package_name = "${release}.cgk.el6"
+    }
+    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
+  }
+
+  if !defined(Package['collectd-bind']) {
+    package { 'collectd-bind':
+      ensure  => $package_name,
+    }
   }
 
   file { "/etc/collectd${instance}.d/bind":

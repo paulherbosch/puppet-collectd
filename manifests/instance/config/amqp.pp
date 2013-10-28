@@ -5,7 +5,8 @@ define collectd::instance::config::amqp (
   $user = 'guest',
   $password = 'guest',
   $messageFormat = 'graphite',
-  $graphitePrefix = 'collectd.'
+  $graphitePrefix = 'collectd.',
+  $release = '5.2.0-6'
 ) {
 
   include collectd::params
@@ -14,6 +15,16 @@ define collectd::instance::config::amqp (
     $instance = $name
   } else {
     $instance = ''
+  }
+
+  case $::operatingsystemrelease {
+    /^5./: {
+      $package_name = "${release}.cgk.el5"
+    }
+    /^6./: {
+      $package_name = "${release}.cgk.el6"
+    }
+    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
   }
 
   if !defined(Package['collectd-amqp']) {
@@ -35,7 +46,7 @@ define collectd::instance::config::amqp (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("collectd/plugins/amqp.conf.erb"),
+    content => template('collectd/plugins/amqp.conf.erb'),
   }
 
   Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Amqp[$title] ~> Collectd::Instance::Service[$title]
