@@ -39,7 +39,7 @@ define collectd::instance::config::mysql (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("collectd/plugins/mysql.conf.erb"),
+    content => template('collectd/plugins/mysql.conf.erb'),
   }
 
   Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Mysql[$title] ~> Collectd::Instance::Service[$title]
