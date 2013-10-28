@@ -9,7 +9,7 @@ define collectd::instance::config::snmp (
     $instance = ''
   }
 
- case $::operatingsystemrelease {
+  case $::operatingsystemrelease {
     /^5./: {
       $package_name = "${release}.cgk.el5"
     }
