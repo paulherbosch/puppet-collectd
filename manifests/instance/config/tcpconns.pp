@@ -1,6 +1,6 @@
-define collectd::instance::config::tcpconns ($tcp_connections_items=[]) {
-
-  include collectd::params
+define collectd::instance::config::tcpconns (
+  $tcp_connections_items=[],
+) {
 
   if $name != 'default' {
     $instance = $name
