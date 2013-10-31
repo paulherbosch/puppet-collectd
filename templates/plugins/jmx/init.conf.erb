@@ -1,3 +1,17 @@
+LoadPlugin "match_regex"
+LoadPlugin "target_replace"
+<Chain PreCache>
+  <Rule unquote>
+    <Match regex>
+      Plugin "^GenericJMX$"
+    </Match>
+    <Target "replace">
+      PluginInstance "\\\"" ""
+      PluginInstance "\\\"" ""
+    </Target>
+  </Rule>
+</Chain>
+
 LoadPlugin java
 <Plugin "java">
   JVMARG "-verbose:jni"

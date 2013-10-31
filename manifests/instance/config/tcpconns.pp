@@ -1,6 +1,6 @@
-define collectd::instance::config::tcpconns ($tcp_connections_items=[]) {
-
-  include collectd::params
+define collectd::instance::config::tcpconns (
+  $tcp_connections_items=[],
+) {
 
   if $name != 'default' {
     $instance = $name
@@ -20,7 +20,7 @@ define collectd::instance::config::tcpconns ($tcp_connections_items=[]) {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("collectd/plugins/tcpconns.conf.erb"),
+    content => template('collectd/plugins/tcpconns.conf.erb'),
   }
 
   Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Tcpconns[$title] ~> Collectd::Instance::Service[$title]
