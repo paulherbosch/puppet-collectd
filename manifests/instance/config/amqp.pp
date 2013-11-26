@@ -6,7 +6,7 @@ define collectd::instance::config::amqp (
   $password = 'guest',
   $messageFormat = 'graphite',
   $graphitePrefix = 'collectd.',
-  $release = '5.2.0-6'
+  $version = 'present'
 ) {
 
   include collectd::params
@@ -18,36 +18,30 @@ define collectd::instance::config::amqp (
   }
 
   case $::operatingsystemrelease {
-    /^5./: {
-      $package_name = "${release}.cgk.el5"
-    }
-    /^6./: {
-      $package_name = "${release}.cgk.el6"
+    /^[56]\./: {
+      if !defined(Package['collectd-amqp']) {
+        package { 'collectd-amqp':
+          ensure  => $version,
+        }
+      }
+
+      file { "/etc/collectd${instance}.d/amqp":
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
+      }
+
+      file { "/etc/collectd${instance}.d/amqp/init.conf":
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template('collectd/plugins/amqp.conf.erb'),
+      }
+
+      Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Amqp[$title] ~> Collectd::Instance::Service[$title]
     }
     default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
   }
-
-  if !defined(Package['collectd-amqp']) {
-    package { 'collectd-amqp':
-      ensure  => $package_name,
-    }
-  }
-
-  file { "/etc/collectd${instance}.d/amqp":
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
-  # Create /etc/collectd${instance}.d/amqp/init.conf
-  file { "/etc/collectd${instance}.d/amqp/init.conf":
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('collectd/plugins/amqp.conf.erb'),
-  }
-
-  Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Amqp[$title] ~> Collectd::Instance::Service[$title]
 }
