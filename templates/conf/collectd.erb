@@ -15,7 +15,8 @@
 #BaseDir     "/var/lib/collectd"
 #PIDFile     "/var/run/collectd.pid"
 #PluginDir   "/usr/lib64/collectd"
-#TypesDB     "/usr/share/collectd/types.db"
+TypesDB     "/usr/share/collectd/types.db"
+TypesDB     "/etc/collectd<%= instance %>.d/types.db"
 Timeout      2
 ReadThreads  5
 Interval     <%= interval %>
