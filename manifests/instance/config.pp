@@ -35,4 +35,13 @@ define collectd::instance::config (
     mode    => '0755',
   }
 
+  file { "collectd${instance}/types.db":
+    ensure  => file,
+    path    => "/etc/collectd${instance}.d/types.db",
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => "puppet:///modules/${module_name}/types.db"
+  }
+
 }
