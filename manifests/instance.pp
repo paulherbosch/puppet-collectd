@@ -5,8 +5,10 @@ define collectd::instance ($interval = '10', $version = 'present') {
   # Other value, e.g. '10s' => create second collectd instance collectd10s...
   # default service is always installed (because it is required by other optional collectd instances)
 
-  class { 'collectd::instance::package':
-    version => $version,
+  if !defined(Class['collectd::instance::package']) {
+    class { 'collectd::instance::package':
+      version => $version,
+    }
   }
 
   collectd::instance::config { $title:
