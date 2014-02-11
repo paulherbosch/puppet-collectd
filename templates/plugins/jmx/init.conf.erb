@@ -19,6 +19,6 @@ LoadPlugin java
   LoadPlugin "org.collectd.java.GenericJMX"
 </Plugin>
 
-Include "/etc/collectd<%= instance %>.d/jmx/jmx_*.conf"
-Include "/etc/collectd<%= instance %>.d/jmx/connection.conf"
+Include "/etc/collectd<%= @instance %>.d/jmx/jmx_*.conf"
+Include "/etc/collectd<%= @instance %>.d/jmx/connection.conf"
 

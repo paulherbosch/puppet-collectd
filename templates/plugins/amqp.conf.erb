@@ -1,16 +1,16 @@
 LoadPlugin amqp
 <Plugin "amqp">
-  <Publish "<%= exchange %>">
-    Host "<%= host %>"
-    Port "<%= port %>"
+  <Publish "<%= @exchange %>">
+    Host "<%= @host %>"
+    Port "<%= @port %>"
     VHost "/"
-    User "<%= user %>"
-    Password "<%= password %>"
-    Exchange "<%= exchange %>"
+    User "<%= @user %>"
+    Password "<%= @password %>"
+    Exchange "<%= @exchange %>"
     RoutingKey ""
     Persistent false
-    Format "<%= messageFormat %>"
-    GraphitePrefix "<%= graphitePrefix %>"
+    Format "<%= @messageFormat %>"
+    GraphitePrefix "<%= @graphitePrefix %>"
     StoreRates false
  </Publish>
 </Plugin>
