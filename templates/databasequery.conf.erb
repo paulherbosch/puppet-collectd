@@ -1,6 +1,6 @@
-  <Query "<%= name %>">
-    Statement "<%= sqlstatement %>"
-    <%- results.each do |result| -%>
+  <Query "<%= @name %>">
+    Statement "<%= @sqlstatement %>"
+    <%- @results.each do |result| -%>
     <Result>
       Type <%= result['resultType'] %>
       InstancePrefix <%= result['instancePrefix'] %>
