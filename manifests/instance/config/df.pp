@@ -1,5 +1,4 @@
-define collectd::instance::config::snmp (
-  $configfile,
+define collectd::instance::config::df(
   $version='present'
 ) {
 
@@ -11,27 +10,23 @@ define collectd::instance::config::snmp (
 
   case $::operatingsystemrelease {
     /^[56]\./: {
-      if !defined(Package['collectd-snmp']) {
-        package { 'collectd-snmp':
-          ensure  => $version,
-        }
-      }
-
-      file { "/etc/collectd${instance}.d/snmp":
+      file { "/etc/collectd${instance}.d/df":
         ensure => directory,
         owner  => 'root',
         group  => 'root',
         mode   => '0755',
       }
 
-      # Create /etc/collectd${instance}.d/snmp/init.conf
-      file { "/etc/collectd${instance}.d/snmp/init.conf":
+      file { "/etc/collectd${instance}.d/df/init.conf":
         ensure  => file,
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => file($configfile),
+        content => template("${module_name}/plugins/df/init.conf.erb"),
+        require => File["/etc/collectd${instance}.d/df"]
       }
+
+      Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Df[$title] ~> Collectd::Instance::Service[$title]
     }
     default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
   }

@@ -1,0 +1,17 @@
+LoadPlugin df
+
+<Plugin "df">
+  FSType "ext3"
+  IgnoreSelected false
+  ReportReserved true
+  ReportInodes false
+</Plugin>
+<Plugin "df">
+  FSType "ext4"
+  IgnoreSelected false
+  ReportReserved true
+  ReportInodes false
+</Plugin>
+
+Include "/etc/collectd<%= @instance %>.d/df/df_*.conf"
+
