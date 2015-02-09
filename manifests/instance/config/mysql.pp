@@ -32,6 +32,7 @@ define collectd::instance::config::mysql (
         group   => 'root',
         mode    => '0644',
         content => template('collectd/plugins/mysql.conf.erb'),
+        notify  => Service["collectd${instance}"]
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Mysql[$title] ~> Collectd::Instance::Service[$title]

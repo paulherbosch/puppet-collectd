@@ -38,6 +38,7 @@ define collectd::instance::config::amqp (
         group   => 'root',
         mode    => '0644',
         content => template('collectd/plugins/amqp.conf.erb'),
+        notify  => Service["collectd${instance}"]
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Amqp[$title] ~> Collectd::Instance::Service[$title]

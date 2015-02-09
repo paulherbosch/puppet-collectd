@@ -31,6 +31,7 @@ define collectd::instance::config::snmp (
         group   => 'root',
         mode    => '0644',
         content => file($configfile),
+        notify  => Service["collectd${instance}"]
       }
     }
     default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
