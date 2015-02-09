@@ -58,6 +58,7 @@ define collectd::instance::config::oracle (
         group   => 'root',
         mode    => '0644',
         content => template("${module_name}/initoracle.conf.erb"),
+        notify  => Service["collectd${instance}"]
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Oracle[$title] ~> Collectd::Instance::Service[$title]

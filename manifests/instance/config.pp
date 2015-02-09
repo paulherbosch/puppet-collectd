@@ -1,5 +1,5 @@
 define collectd::instance::config (
-  $interval='10',
+  $interval='30',
   $pidfile='/var/run/collectd',
 ) {
 

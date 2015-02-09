@@ -14,7 +14,8 @@ define collectd::instance::config::file($instance='', $plugin_type=undef, $file_
 
   file { "/etc/collectd${instance}.d/${plugin_type}/${file_name}":
     ensure => file,
-    source => $source
+    source => $source,
+    notify => Service["collectd${instance}"]
   }
 
 }

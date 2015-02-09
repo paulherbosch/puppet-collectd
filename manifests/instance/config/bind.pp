@@ -37,6 +37,7 @@ define collectd::instance::config::bind (
         group   => 'root',
         mode    => '0644',
         content => template('collectd/plugins/bind.conf.erb'),
+        notify  => Service["collectd${instance}"]
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Bind[$title] ~> Collectd::Instance::Service[$title]

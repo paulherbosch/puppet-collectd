@@ -23,7 +23,8 @@ define collectd::instance::config::df(
         group   => 'root',
         mode    => '0644',
         content => template("${module_name}/plugins/df/init.conf.erb"),
-        require => File["/etc/collectd${instance}.d/df"]
+        require => File["/etc/collectd${instance}.d/df"],
+        notify  => Service["collectd${instance}"]
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Df[$title] ~> Collectd::Instance::Service[$title]

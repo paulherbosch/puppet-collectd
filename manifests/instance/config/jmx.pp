@@ -30,7 +30,8 @@ define collectd::instance::config::jmx(
         group   => 'root',
         mode    => '0644',
         content => template("${module_name}/plugins/jmx/init.conf.erb"),
-        require => File["/etc/collectd${instance}.d/jmx"]
+        require => File["/etc/collectd${instance}.d/jmx"],
+        notify  => Service["collectd${instance}"]
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Jmx[$title] ~> Collectd::Instance::Service[$title]
