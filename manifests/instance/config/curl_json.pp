@@ -34,7 +34,7 @@ define collectd::instance::config::curl_json(
         notify  => Service["collectd${instance}"]
       }
 
-      Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Jmx[$title] ~> Collectd::Instance::Service[$title]
+      Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Curl_json[$title] ~> Collectd::Instance::Service[$title]
     }
     default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
   }
