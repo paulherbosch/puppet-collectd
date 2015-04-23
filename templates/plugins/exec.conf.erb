@@ -1,0 +1,8 @@
+LoadPlugin exec
+<Plugin "exec">
+  <% if has_variable?("program") %>
+    <% @program.each_pair do |key,value_hash| %>
+      Exec "<%= value_hash['user'] %>" "<%= value_hash['command'] %>"
+    <% end %>
+  <% end %>
+</Plugin>

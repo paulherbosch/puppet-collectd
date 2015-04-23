@@ -1,5 +1,5 @@
 collectd::instance {'default':
-  interval => 60,
-  release  => '5.2.2-3',
+  interval  => 60,
+  version   => '5.2.2-3',
 }
 
