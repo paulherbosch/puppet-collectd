@@ -15,7 +15,7 @@ LoadPlugin "target_replace"
 LoadPlugin java
 <Plugin "java">
   JVMARG "-verbose:jni"
-	JVMARG "-Djava.class.path=/usr/share/collectd/java/collectd-api.jar:/usr/share/collectd/java/generic-jmx-wildfy.jar:<%= @wildfly_home %>/bin/client/jboss-cli-client.jar"
+	JVMARG "-Djava.class.path=/usr/share/collectd/java/collectd-api.jar:/usr/share/collectd/java/generic-jmx-wildfly.jar:<%= @wildfly_home %>/bin/client/jboss-cli-client.jar"
   LoadPlugin "org.collectd.java.GenericJMX"
 </Plugin>
 
