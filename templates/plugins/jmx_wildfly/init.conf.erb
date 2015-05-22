@@ -1,0 +1,24 @@
+LoadPlugin "match_regex"
+LoadPlugin "target_replace"
+<Chain PreCache>
+  <Rule unquote>
+    <Match regex>
+      Plugin "^GenericJMX$"
+    </Match>
+    <Target "replace">
+      PluginInstance "\\\"" ""
+      PluginInstance "\\\"" ""
+    </Target>
+  </Rule>
+</Chain>
+
+LoadPlugin java
+<Plugin "java">
+  JVMARG "-verbose:jni"
+	JVMARG "-Djava.class.path=/usr/share/collectd/java/collectd-api.jar:/usr/share/collectd/java/generic-jmx-wildfy.jar:<%= @wildfly_home %>/bin/client/jboss-cli-client.jar"
+  LoadPlugin "org.collectd.java.GenericJMX"
+</Plugin>
+
+Include "/etc/collectd<%= @instance %>.d/jmx/jmx_*.conf"
+Include "/etc/collectd<%= @instance %>.d/jmx/connection.conf"
+
