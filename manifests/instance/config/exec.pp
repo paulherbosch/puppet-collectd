@@ -22,8 +22,6 @@ define collectd::instance::config::exec (
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
       file { "/etc/collectd${instance}.d/exec":
         ensure => directory,
         owner  => 'root',
@@ -41,7 +39,4 @@ define collectd::instance::config::exec (
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Exec[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }

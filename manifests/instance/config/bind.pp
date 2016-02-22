@@ -16,13 +16,9 @@ define collectd::instance::config::bind (
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-bind']) {
         package { 'collectd-bind':
           ensure  => $version,
         }
-      }
 
       file { "/etc/collectd${instance}.d/bind":
         ensure => directory,
@@ -41,7 +37,4 @@ define collectd::instance::config::bind (
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Bind[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }

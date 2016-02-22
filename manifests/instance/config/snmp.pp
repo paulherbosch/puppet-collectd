@@ -9,13 +9,9 @@ define collectd::instance::config::snmp (
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-snmp']) {
         package { 'collectd-snmp':
           ensure  => $version,
         }
-      }
 
       file { "/etc/collectd${instance}.d/snmp":
         ensure => directory,
@@ -33,7 +29,4 @@ define collectd::instance::config::snmp (
         content => file($configfile),
         notify  => Service["collectd${instance}"]
       }
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }

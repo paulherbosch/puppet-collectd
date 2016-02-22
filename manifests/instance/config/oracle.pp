@@ -9,7 +9,7 @@ define collectd::instance::config::oracle (
   }
 
   case $::operatingsystemrelease {
-    /^[56]\./: {
+    /^[567]\./: {
       if !defined(Package['collectd-oracle']) {
         package { 'collectd-oracle':
           ensure  => $version,
