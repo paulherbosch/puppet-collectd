@@ -8,8 +8,6 @@ define collectd::instance::config::df(
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
       file { "/etc/collectd${instance}.d/df":
         ensure => directory,
         owner  => 'root',
@@ -28,7 +26,4 @@ define collectd::instance::config::df(
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Df[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }

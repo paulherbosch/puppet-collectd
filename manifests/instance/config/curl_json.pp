@@ -9,13 +9,9 @@ define collectd::instance::config::curl_json(
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-curl_json']) {
         package { 'collectd-curl_json':
           ensure => $version,
         }
-      }
 
       file { "/etc/collectd${instance}.d/curl_json":
         ensure => directory,
@@ -35,7 +31,4 @@ define collectd::instance::config::curl_json(
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Curl_json[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }

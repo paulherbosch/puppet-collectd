@@ -17,13 +17,9 @@ define collectd::instance::config::amqp (
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-amqp']) {
         package { 'collectd-amqp':
           ensure  => $version,
         }
-      }
 
       file { "/etc/collectd${instance}.d/amqp":
         ensure => directory,
@@ -42,7 +38,4 @@ define collectd::instance::config::amqp (
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Amqp[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }

@@ -9,13 +9,9 @@ define collectd::instance::config::jmx(
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-java']) {
         package { 'collectd-java':
           ensure => $version,
         }
-      }
 
       file { "/etc/collectd${instance}.d/jmx":
         ensure => directory,
@@ -35,7 +31,4 @@ define collectd::instance::config::jmx(
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Jmx[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }

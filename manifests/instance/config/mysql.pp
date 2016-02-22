@@ -11,13 +11,9 @@ define collectd::instance::config::mysql (
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-mysql']) {
         package { 'collectd-mysql':
           ensure  => $version,
         }
-      }
 
       file { "/etc/collectd${instance}.d/mysql":
         ensure => directory,
@@ -37,7 +33,4 @@ define collectd::instance::config::mysql (
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Mysql[$title] ~> Collectd::Instance::Service[$title]
 
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }
