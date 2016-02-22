@@ -39,7 +39,4 @@ define collectd::instance::config::jmx_wildfly(
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Jmx_wildfly[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }
