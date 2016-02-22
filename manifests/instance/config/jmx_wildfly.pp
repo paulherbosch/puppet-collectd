@@ -10,12 +10,8 @@ define collectd::instance::config::jmx_wildfly(
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-java']) {
-        package { 'collectd-java':
-          ensure => $version,
-        }
+      package { 'collectd-java':
+        ensure => $version,
       }
 
       file { "/etc/collectd${instance}.d/jmx":
