@@ -10,12 +10,8 @@ define collectd::instance::config::jmx_wildfly(
     $instance = ''
   }
 
-  case $::operatingsystemrelease {
-    /^[56]\./: {
-      if !defined(Package['collectd-java']) {
-        package { 'collectd-java':
-          ensure => $version,
-        }
+      package { 'collectd-java':
+        ensure => $version,
       }
 
       file { "/etc/collectd${instance}.d/jmx":
@@ -43,7 +39,4 @@ define collectd::instance::config::jmx_wildfly(
       }
 
       Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Jmx_wildfly[$title] ~> Collectd::Instance::Service[$title]
-    }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
-  }
 }
