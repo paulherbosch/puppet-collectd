@@ -18,6 +18,15 @@ describe 'collectd' do
           version  => '5.2.2-3.cgk.el6',
           interval => '30'
         }
+
+        collectd::instance::config::tcpconns { 'default':
+          tcp_connections_items => [
+            {
+              'listening_ports' => 'false',
+              'local_port'      => '31337'
+            }
+          ]
+        }
       EOS
 
       # Run it twice and test for idempotency
@@ -26,6 +35,10 @@ describe 'collectd' do
     end
     describe process("collectd") do
       it { should be_running }
+    end
+
+    describe file('/etc/collectddefault.d/tcpconns/init.conf') do
+      it { should contain '31337' }
     end
   end
 end
