@@ -37,7 +37,7 @@ describe 'collectd' do
       it { should be_running }
     end
 
-    describe file('/etc/collectddefault.d/tcpconns/init.conf') do
+    describe file('/etc/collectd.d/tcpconns/init.conf') do
       it { should contain '31337' }
     end
   end
