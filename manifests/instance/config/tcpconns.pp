@@ -25,4 +25,5 @@ define collectd::instance::config::tcpconns (
   }
 
   Collectd::Instance::Config[$title] -> Collectd::Instance::Config::Tcpconns[$title] ~> Collectd::Instance::Service[$title]
+
 }
