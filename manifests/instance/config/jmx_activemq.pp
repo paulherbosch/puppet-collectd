@@ -2,8 +2,6 @@ define collectd::instance::config::jmx_activemq(
   $version='present',
   $activemq_home = $activemq_home
 ) {
-
-
   if $name != 'default' {
     $instance = $name
   } else {
