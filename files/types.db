@@ -1,1 +1,2 @@
 boolean  value:COUNTER:0:1
+average_message_size  value:GAUGE:0:10000000000000
