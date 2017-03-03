@@ -13,7 +13,7 @@ LoadPlugin bind
     QTypes        true
     ResolverStats true
     CacheRRSets   true
-<% if has_variable?("zones") %>
+<% if @zones %>
   <% @zones.each do |zone| %>
     Zone "<%= zone %>"
   <% end %>
