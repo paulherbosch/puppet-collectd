@@ -3,7 +3,7 @@
 define collectd::instance (
   $interval = '30',
   $version = 'present',
-  $additional_config = undef
+  $additional_config = []
 ) {
   # namevar = 'default' => default collectd service.
   # Other value, e.g. '10s' => create second collectd instance collectd10s...
