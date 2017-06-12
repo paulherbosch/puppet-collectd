@@ -1,6 +1,10 @@
 # Use namevar = 'default' to create the default collectd instance (service collectd)
 
-define collectd::instance ($interval = '30', $version = 'present') {
+define collectd::instance (
+  $interval = '30',
+  $version = 'present',
+  $additional_config = undef
+) {
   # namevar = 'default' => default collectd service.
   # Other value, e.g. '10s' => create second collectd instance collectd10s...
   # default service is always installed (because it is required by other optional collectd instances)
@@ -13,7 +17,8 @@ define collectd::instance ($interval = '30', $version = 'present') {
 
   collectd::instance::config { $title:
     interval => $interval,
-    require  => Class['collectd::instance::package'],
+    additional_config => $additional_config,
+    require => Class['collectd::instance::package'],
   }
 
   collectd::instance::service { $title:
