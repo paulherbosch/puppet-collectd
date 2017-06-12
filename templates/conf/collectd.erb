@@ -21,6 +21,11 @@ Timeout      2
 ReadThreads  5
 Interval     <%= @interval %>
 PIDFile      "<%= @pidfile %><%= @instance %>.pid"
+<%- unless @additional_config.empty? -%>
+<%- @additional_config.each do |line| -%>
+<%= line %>
+<%- end -%>
+<%- end -%>
 Include      "/etc/collectd<%= @instance %>.d/*/init.conf"
 
 ##############################################################################
