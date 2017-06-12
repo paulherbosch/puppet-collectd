@@ -1,7 +1,7 @@
 define collectd::instance::config (
-  $interval='30',
-  $pidfile='/var/run/collectd',
-  $additional_config=undef
+  $interval = '30',
+  $pidfile = '/var/run/collectd',
+  $additional_config = []
 ) {
 
   if $name != 'default' {
