@@ -1,5 +1,5 @@
 = puppet-collectd module
 
-{<img src='https://codex.cegeka.be/jenkins/job/puppet-collectd/badge/icon' />}[https://codex.cegeka.be/jenkins/job/puppet-collectd/]
+{<img src='https://jenkins-iac.cegeka.be/job/puppet-collectd/badge/icon' />}[https://jenkins-iac.cegeka.be/job/puppet-collectd/]
 
 This is the collectd module.
